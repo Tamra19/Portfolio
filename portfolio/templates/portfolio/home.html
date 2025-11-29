@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}Home | My Portfolio{% endblock %}
+
+{% block content %}
+
+<!-- Heading -->
+<div class="text-center mb-5">
+    <h1 class="display-5 fw-bold">My Projects</h1>
+    <p class="text-muted">All projects are dynamically added from the Django admin panel.</p>
+</div>
+
+<!-- Projects Grid -->
+<div class="row g-4">
+    {% for project in projects %}
+    <div class="col-md-4">
+        <div class="card project-card shadow-sm">
+
+            {% if project.images.all %}
+            <div id="carousel{{ project.id }}" class="carousel slide">
+                <div class="carousel-inner">
+
+                    {% for img in project.images.all %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+
+                        <!-- Image click triggers modal -->
+                        <img src="{{ img.image.url }}" class="d-block w-100 project-img" data-project="{{ project.id }}"
+                            data-index="{{ forloop.counter0 }}"
+                            style="height: 220px; object-fit: cover; border-radius: 6px; cursor:pointer;">
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+                <!-- Prev -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ project.id }}"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+
+                <!-- Next -->
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ project.id }}"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+
+            </div>
+            {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title">{{ project.title }}</h5>
+
+                <button class="btn btn-sm btn-outline-secondary mt-2" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#desc{{ project.id }}">
+                    Show Description
+                </button>
+
+                <div class="collapse mt-2" id="desc{{ project.id }}">
+                    <p class="text-muted">{{ project.description }}</p>
+                </div>
+
+                <div class="d-flex justify-content-start gap-3">
+                    {% if project.github_link %}
+                    <a href="{{ project.github_link }}" target="_blank" class="btn btn-outline-dark btn-sm">
+                        GitHub
+                    </a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if projects|length == 0 %}
+<div class="text-center mt-5">
+    <h4 class="text-muted">No projects added yet.</h4>
+    <p>Add a project from your admin panel to see it here.</p>
+</div>
+{% endif %}
+
+<!-- FLOATING DOWNLOAD RESUME BUTTON -->
+<a href="/static/resume.pdf" download class="btn btn-dark resume-btn">Download Resume</a>
+
+
+<!-- ================= MODAL FOR IMAGE VIEWER ================= -->
+
+<style>
+    #imageModal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        justify-content: center;
+        align-items: center;
+    }
+
+    #modalImage {
+        max-width: 80%;
+        max-height: 80%;
+        border-radius: 10px;
+    }
+
+    .arrow {
+        position: absolute;
+        top: 50%;
+        font-size: 50px;
+        color: white;
+        cursor: pointer;
+        padding: 10px;
+        user-select: none;
+    }
+
+    #prevArrow {
+        left: 30px;
+    }
+
+    #nextArrow {
+        right: 30px;
+    }
+
+    #closeBtn {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 40px;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+
+<div id="imageModal">
+    <span id="closeBtn">&times;</span>
+    <span class="arrow" id="prevArrow">&#10094;</span>
+    <img id="modalImage" src="">
+    <span class="arrow" id="nextArrow">&#10095;</span>
+</div>
+
+<script>
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+
+    const prevArrow = document.getElementById("prevArrow");
+    const nextArrow = document.getElementById("nextArrow");
+    const closeBtn = document.getElementById("closeBtn");
+
+    let currentProject = null;
+    let currentIndex = 0;
+
+    // Step 1: Collect images grouped by project
+    const projectImages = {};
+
+    document.querySelectorAll(".project-img").forEach(img => {
+        const projectId = img.dataset.project;
+        if (!projectImages[projectId]) {
+            projectImages[projectId] = [];
+        }
+        projectImages[projectId].push(img.src);
+    });
+
+    // Step 2: Add click event to open modal
+    document.querySelectorAll(".project-img").forEach(img => {
+        img.addEventListener("click", () => {
+            currentProject = img.dataset.project;
+            currentIndex = parseInt(img.dataset.index);
+
+            modal.style.display = "flex";
+            modalImg.src = projectImages[currentProject][currentIndex];
+        });
+    });
+
+    // Step 3: Next / Prev buttons
+    nextArrow.onclick = () => {
+        currentIndex = (currentIndex + 1) % projectImages[currentProject].length;
+        modalImg.src = projectImages[currentProject][currentIndex];
+    };
+
+    prevArrow.onclick = () => {
+        currentIndex = (currentIndex - 1 + projectImages[currentProject].length) % projectImages[currentProject].length;
+        modalImg.src = projectImages[currentProject][currentIndex];
+    };
+
+    // Close modal
+    closeBtn.onclick = () => modal.style.display = "none";
+
+    modal.addEventListener("click", e => {
+        if (e.target === modal) modal.style.display = "none";
+    });
+
+    // Keyboard navigation
+    document.addEventListener("keydown", e => {
+        if (modal.style.display === "flex") {
+            if (e.key === "ArrowRight") nextArrow.click();
+            if (e.key === "ArrowLeft") prevArrow.click();
+            if (e.key === "Escape") modal.style.display = "none";
+        }
+    });
+</script>
+
+{% endblock %}

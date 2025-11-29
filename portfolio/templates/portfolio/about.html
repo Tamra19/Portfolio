@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{%block title %}About Me{% endblock %}
+
+{% block content %}
+    <!-- MAIN ABOUT SECTION -->
+    <div class="container">
+
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <img src="/static/profile.jpg" class="profile-img" alt="My Photo">
+            <h1 class="fw-bold mt-3">Aryan Tamrakar</h1>
+            <p class="text-muted" style="font-size: 1.1rem;">
+                Computer Science Graduate • Developer • Tech Enthusiast
+            </p>
+        </div>
+
+        <!-- INTRO -->
+        <div class="mb-5">
+            <h3 class="section-title">Introduction</h3>
+            <p style="font-size: 1.05rem; line-height: 1.7;">
+                Hi! I'm Aryan, a passionate developer who loves building real-world applications, solving 
+                programming problems, and exploring new technologies. I specialize in Python, Django, FLask, backend development, 
+                and creating efficient solutions that make life easier.
+
+                <br><br>
+                I enjoy working on challenging problems, learning new tools, and continuously upgrading my skills.
+                My goal is to become a highly skilled software developer and create impactful digital experiences.
+            </p>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="mb-5">
+            <h3 class="section-title">Skills</h3>
+
+            <div>
+                <span class="skill-badge"><i class="bi bi-code-slash"></i> Python</span>
+                <span class="skill-badge"><i class="bi bi-filetype-cpp"></i> C++</span>
+                <span class="skill-badge"><i class="bi bi-terminal-fill"></i> C</span>
+                <span class="skill-badge"><i class="bi bi-globe2"></i> HTML/CSS</span>
+                <span class="skill-badge"><i class="bi bi-bootstrap-fill"></i> Bootstrap</span>
+                <span class="skill-badge"><i class="bi bi-database"></i> SQLite</span>
+                <span class="skill-badge"><i class="bi bi-circle-fill"></i> Django</span>
+                <span class="skill-badge"><i class="bi bi-circle-fill"></i> Flask</span>
+                <span class="skill-badge"><i class="bi bi-circle-fill"></i> FastAPI</span>
+                <span class="skill-badge"><i class="bi bi-diagram-3"></i> Data Structures</span>
+                <span class="skill-badge"><i class="bi bi-lightning-charge-fill"></i> Problem Solving</span>
+            </div>
+        </div>
+
+
+        <!-- EDUCATION -->
+        <div class="mb-5">
+            <h3 class="section-title">Education</h3>
+            <ul>
+
+                <li><div class="education">
+                    <h5 class="fw-bold">Bachelor of Computer Science</h5>
+                    <p class="text-muted mb-1">IIST, Indore • 2021–2025</p>
+                    <p>Focused on software development, algorithms, and backend engineering.</p>
+                </div>
+                </li>
+                <li>
+                <div class="education">
+                    <h5 class="fw-bold">Higher Secondary Education</h5>
+                    <p class="text-muted mb-1">Little Word School, Jabalpur • CBSE</p>
+                </div>
+                </li>
+            </ul>
+        </div>
+
+
+        <!-- WHAT I DO -->
+        <div class="mb-5">
+            <h3 class="section-title">What I Do</h3>
+
+            <ul style="font-size:1.05rem; line-height:1.7;">
+                <li>Build web applications using Python, Django, Flask and FastAPI</li>
+                <li>Create full-stack websites and APIs</li>
+                <li>Design clean UI experiences using Bootstrap</li>
+                <li>Work on Data Structures & Algorithms</li>
+                <li>Explore AI and build projects on Generative AI</li>
+                <li>Learn new technologies and frameworks</li>
+            </ul>
+        </div>
+
+{% endblock %}

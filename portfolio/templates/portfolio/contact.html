@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="mb-5">
+        <h2>Contact Info:</h2>
+        <br>
+        <ul>
+            <li><b>Phone:</b> 6261636304</li>
+            <br>
+            <li><b>Email:</b> aryantamrakar35@gmail.com</li>
+            <br>
+            <li><b>Linkedin:</b> <a href="www.linkedin.com/in/aryantamrakar">www.linkedin.com/in/aryantamrakar</a></li>
+            <br>
+            <li><b>GitHub:</b> <a href="https://github.com/Tamra19">https://github.com/Tamra19</a></li>
+        </ul>
+    </div>
+    <h2>Contact Me</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert {{ messages.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Render fields manually or use form.as_p -->
+        <div class="form-group">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+            {{ form.name.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.message.label_tag }}
+            {{ form.message }}
+            {{ form.message.errors }}
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+
+</div>
+{% endblock %}
