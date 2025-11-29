@@ -121,6 +121,8 @@ STATIC_DIRS = [
     BASE_DIR / "portfolio/static"
 ]
 
+STATIC_ROOT = BASE_DIR / "static"
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
