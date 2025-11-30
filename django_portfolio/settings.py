@@ -118,10 +118,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# All static files collected here (required for PythonAnywhere)
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
-STATIC_DIRS = [
-    BASE_DIR / "portfolio/static"
+# Static files inside your app folder (optional)
+STATICFILES_DIRS = [
+    BASE_DIR / "portfolio/static",
 ]
 
 
