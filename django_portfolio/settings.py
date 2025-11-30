@@ -123,7 +123,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Static files inside your app folder (optional)
 STATICFILES_DIRS = [
-    BASE_DIR / "portfolio/static",
+    BASE_DIR / "portfolio" / "static",
 ]
 
 
