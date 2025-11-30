@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-k*2qg*=6dmu82dl-^u=ghp1v%gk#4(n%_t)_3wef#bpe61wrh@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['tamra19.pythonanywhere.com']
+ALLOWED_HOSTS = ['.pythonanywhere.com']
 
 
 # Application definition
@@ -119,7 +119,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # All static files collected here (required for PythonAnywhere)
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Static files inside your app folder (optional)
 STATICFILES_DIRS = [
